@@ -33,4 +33,5 @@ $("#TimeSlots").on("click", "button", function(){
     let currentTaskText = $("#" + $(this).attr("data-index")).val();
     taskArray[timeId - startTime] = currentTaskText;
     localStorage.setItem(taskArray);
+    
 })
