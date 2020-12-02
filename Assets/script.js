@@ -9,9 +9,15 @@ function displayTimeCards(){
     for(let i = startTime; i <= endTime; i++){
         let displayTime = i;
         let amOrPm = "AM";
+        let taskArrayContent = localStorage.getItem("Textinfo");
+        let textContent = taskArrayContent[i-startTime];
+        console.log(taskArrayContent);
         if (displayTime > 12){
             displayTime = displayTime - 12;
             amOrPm = "PM"
+        }
+        if (textContent = "undefined"){
+            textContent = "";
         }
         var timeCard = $(
         `
@@ -20,7 +26,7 @@ function displayTimeCards(){
                     <span>${displayTime} ${amOrPm}</span>
                 </div>
                 <div class="col">
-                    <textarea id="${displayTime}">${localStorage.getItem(taskArray[i-startTime])}</textarea>
+                    <textarea id="${displayTime}">${textContent}</textarea>
                 </div>
                 <button data-index="${displayTime}" class="col-1 saveBtn">🖫</button>
             </div>
@@ -32,6 +38,6 @@ $("#TimeSlots").on("click", "button", function(){
     let timeId = $(this).attr("data-index");
     let currentTaskText = $("#" + $(this).attr("data-index")).val();
     taskArray[timeId - startTime] = currentTaskText;
-    localStorage.setItem(taskArray);
-    
+    localStorage.setItem("Textinfo", taskArray);
+    displayTimeCards();
 })
