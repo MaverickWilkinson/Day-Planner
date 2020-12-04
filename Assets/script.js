@@ -1,7 +1,7 @@
 var testEl = $(`<h1>test</h1>`);
 var startTime = 9;
 var endTime = 17;
-var taskArray = new Array(endTime - startTime)
+var taskArray = new Array(endTime - startTime);
 $(document).ready(function(){
     displayTimeCards();
 })
@@ -9,16 +9,22 @@ function displayTimeCards(){
     for(let i = startTime; i <= endTime; i++){
         let displayTime = i;
         let amOrPm = "AM";
-        let taskArrayContent = localStorage.getItem("Textinfo");
-        let textContent = taskArrayContent[i-startTime];
-        console.log(taskArrayContent);
-        if (displayTime > 12){
+        taskArray = JSON.parse(localStorage.getItem("Textinfo"));
+        let textContent;
+        if (taskArray != null){
+            textContent = taskArray[i - startTime];
+        } else{
+            textContent = "";
+        }
+           if (displayTime > 12){ //swaps am for pm if the time is in the afternoon
             displayTime = displayTime - 12;
             amOrPm = "PM"
         }
-        if (textContent = "undefined"){
+        console.log(textContent)
+        if (textContent === null){
             textContent = "";
         }
+        
         var timeCard = $(
         `
             <div class="row time">
@@ -36,8 +42,8 @@ function displayTimeCards(){
 }
 $("#TimeSlots").on("click", "button", function(){
     let timeId = $(this).attr("data-index");
+    console.log(timeId)
     let currentTaskText = $("#" + $(this).attr("data-index")).val();
     taskArray[timeId - startTime] = currentTaskText;
-    localStorage.setItem("Textinfo", taskArray);
-    displayTimeCards();
+    localStorage.setItem("Textinfo", JSON.stringify(taskArray));
 })
