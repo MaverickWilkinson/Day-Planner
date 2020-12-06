@@ -4,7 +4,14 @@ var endTime = 17;
 var taskArray = new Array(endTime - startTime);
 $(document).ready(function(){
     displayTimeCards();
+    doTheTimeStuff();
 })
+
+function doTheTimeStuff(){
+    let currentDate = new moment();
+    $("#currentDay").append(currentDate.format('YYYY-M-D'));
+}
+
 function displayTimeCards(){
     for(let i = startTime; i <= endTime; i++){
         let displayTime = i;
