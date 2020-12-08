@@ -56,3 +56,13 @@ textarea{
   color: black;
   border-top: 1px dashed black;
 }
+
+#green {
+  background-color: lightgreen;
+}
+#red {
+  background-color: red;
+}
+#grey {
+  background-color: lightgray;
+}
